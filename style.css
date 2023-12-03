@@ -53,3 +53,50 @@ main {
   white-space: nowrap;
   border-width: 0;
 }
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, lightblue, lavender, lightpink, beige);
+background-size: 400% 400%;
+animation: gradient 15s ease infinite;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+canvas {
+  border: 1px solid black;
+}
+
+button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 20px;
+}
+
+#game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  color: red;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
