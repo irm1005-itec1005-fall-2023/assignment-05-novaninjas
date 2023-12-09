@@ -1,83 +1,41 @@
-//
-//  JS File
-//  YOU CAN REMOVE ALL OF THIS CODE AND START FRESH
-//
-
-//
-// Variables
-//
 
 // Constants
 const appID = "app";
-const headingText = "Develop. Preview. Ship.";
-const headingTextIcon = "🚀";
-const projectDueDate = "8 December 2023 11:59";
+const highScoreKey = "snakeHighScore";
+const intructions= "intructions"
 
 // Variables
-let countdownDate = new Date(projectDueDate);
+let highScore = localStorage.getItem(highScoreKey) || 0;
 
 // DOM Elements
 let appContainer = document.getElementById(appID);
 
-//
-// Functions
-//
-
-function calculateDaysLeft(countdownDate) {
-  const now = new Date().getTime();
-  const countdown = new Date(countdownDate).getTime();
-
-  console.log(countdown);
-
-  const difference = (countdown - now) / 1000;
-
-
-  // Countdown passed already
-  if (difference < 1) {
-    return null;
-  }
-
-
-  const days = Math.floor(difference / (60 * 60 * 24));
-
-  return days;
-}
-
 // Add a heading to the app container
 function inititialise() {
-  // If anything is wrong with the app container then end
-  if (!appContainer) {
-    console.error("Error: Could not find app contianer");
+ if (!appContainer) {
+    console.error("Error: Could not find app container");
     return;
   }
-
-  // Create an h1 and add it to our app
-  const h1 = document.createElement("h1");
-  const daysLeft = calculateDaysLeft(countdownDate);
-  let headingTextCalculated = headingText;
-
-  if (daysLeft > 1) {
-    headingTextCalculated = headingTextCalculated.concat(
-      " In ",
-      daysLeft.toString(),
-      " days "
-    );
-  }else if (daysLeft === 1) {
-    headingTextCalculated = headingTextCalculated.concat(
-      " Tomorrow"
-    );
-  }
-
-  h1.textContent = headingTextCalculated.concat(headingTextIcon);
-  appContainer.appendChild(h1);
-
-  // Init complete
-  console.log("App successfully initialised");
+  console.log("App successfully initialized");
+  // Other initialization logic...
 }
 
-//
-// Inits & Event Listeners
-//
+function openInstructions() {
+    const instructionsModal = document.getElementById('instructionsModal');
+    if (instructionsModal) {
+      instructionsModal.style.display = 'block';
+    }
+  }
+
+
+// Function to close instructions modal
+function closeInstructions() {
+    const instructionsModal = document.getElementById('instructionsModal');
+    if (instructionsModal) {
+      instructionsModal.style.display = 'none';
+    }
+  }
+
 
 inititialise();
 
@@ -116,6 +74,14 @@ function draw() {
     ctx.fillStyle = 'black';
     ctx.font = '20px Arial';
     ctx.fillText(`Score: ${score}`, 10, 30);
+    
+
+    // Display the high score
+    ctx.fillStyle = 'black';
+    ctx.font = '20px Arial';
+    ctx.fillText(`Score: ${score}`, 10, 30);
+    ctx.fillText(`High Score: ${highScore}`, 10, 60);
+
 }
 
 function move() {
@@ -155,6 +121,10 @@ function gameOver() {
     const gameOverElement = document.getElementById('game-over');
     gameOverElement.innerHTML = 'Game Over!';
     gameOverElement.style.opacity = 1;
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem(highScoreKey, highScore);
+    }
 }
 function checkCollision() {
     const head = snake[0];
@@ -200,6 +170,11 @@ let intervalId = setInterval(() => {
     checkCollision();
     draw();
 }, 100);
+
+// Add click event listener to the Instructions button
+inititialise();
+const instructionsButton = document.getElementById('instructionsButton');
+instructionsButton.addEventListener('click', openInstructions);
 
 document.addEventListener('keydown', changeDirection);
 

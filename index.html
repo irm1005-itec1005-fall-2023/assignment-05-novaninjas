@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Set the page title -->
-    <title>Group Project</title>
+    <title>Snake Game</title>
 
     <!-- Set the charset we're using to UTF-8 -->
     <meta charset="UTF-8" />
@@ -20,15 +20,23 @@
     <link rel="stylesheet" href="./style.css" />
 
     <!-- Set the Favicon  -->
-    <link rel="icon" href="./images/favicon/rocket.svg" type="image/svg+xml" />
+    <link rel="icon" href="./images/favicon/360_F_420397146_Ehp7BS0DKck2osyszLnN0e176JW0uKxy.jpg" type="image/svg+xml" />
   </head>
   <body>
     <main>
         <h1>Snake Game</h1>
         <canvas id="canvas" width="800" height="600"></canvas>
-        <button onclick="startGame()">Start Game</button>
         <button onclick="window.location.reload();">Restart Game</button>
+        <button id="instructionsButton">Instructions</button>
         <div id="game-over"></div>
+      
+        <div class="instructions-modal" id="instructionsModal">
+          <div class="modal-content">
+            <button class="close" onclick="closeInstructions()">Close</button>
+            <h2>Instructions</h2>
+            <p>Welcome to the game of snake!<br> Use arrow keys to control the snake.<br>Eat the red block to grow and avoid collisions with walls <br>and yourself.</p>
+          </div>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
